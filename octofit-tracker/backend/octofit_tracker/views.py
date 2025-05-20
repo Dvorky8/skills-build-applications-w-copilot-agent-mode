@@ -6,13 +6,16 @@ from .models import User, Team, Activity, Leaderboard, Workout
 
 @api_view(['GET', 'POST'])
 def api_root(request, format=None):
-    base_url = 'http://localhost:8000/'
+    base_urls = [
+        'https://zany-engine-74qqxqx6rxxhwr9r-8000.app.github.dev/',
+        'http://localhost:8000/'
+    ]
     return Response({
-        'users': base_url + 'api/users/?format=api',
-        'teams': base_url + 'api/teams/?format=api',
-        'activities': base_url + 'api/activities/?format=api',
-        'leaderboard': base_url + 'api/leaderboard/?format=api',
-        'workouts': base_url + 'api/workouts/?format=api'
+        'users': [base_url + 'api/users/?format=api' for base_url in base_urls],
+        'teams': [base_url + 'api/teams/?format=api' for base_url in base_urls],
+        'activities': [base_url + 'api/activities/?format=api' for base_url in base_urls],
+        'leaderboard': [base_url + 'api/leaderboard/?format=api' for base_url in base_urls],
+        'workouts': [base_url + 'api/workouts/?format=api' for base_url in base_urls]
     })
 
 class UserViewSet(viewsets.ModelViewSet):
